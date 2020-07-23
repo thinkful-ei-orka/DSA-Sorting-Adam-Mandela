@@ -1,12 +1,29 @@
 /* eslint-disable indent */
-const unsorted = [9, 1, 5, 2, 3, 4, 7, 6, 8];
+const unsorted = [9, 1, 5, 2, 3, 4, 7, 6, 8, 0, 45, 6, 56, 3, 15, 87, 4];
 
-function bucketSort(array, min, max) {
-  let buckets = [[], [], []];
-
-  for (let i = 0; i < array.length; i++) {
-    console.log(Math.floor((array[i] - min) / ((max + 1 - min) / 3)));
+function bucketSort(list) {
+  let buckets = [];
+  let resultArray = [];
+  for (let i = 0; i < list.length; i++) {
+    let bucket = list[i];
+    if (!buckets[bucket]) {
+      buckets[bucket] = [list[i]];
+    } else {
+      buckets[bucket].push(list[i]);
+    }
   }
+  buckets.map(bucket => {
+    if (bucket.length > 1) {
+      bucket.sort((a, b) => a - b);
+    }
+  });
+  buckets.forEach(bucket => {
+    if (bucket) {
+      resultArray = resultArray.concat(bucket);
+    }
+  });
+  return resultArray;
 }
 
-bucketSort([21, 22, 23, 24, 25, 26, 27, 28, 29], 21, 29);
+
+console.log(bucketSort(unsorted));
